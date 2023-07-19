@@ -99,5 +99,57 @@ for (int i = 0; i < matrix.GetLength(0); i++)
     }
 }
 
+// Jagged Array
+
+int[][] jaggedArray = new int[3][];
+jaggedArray[0] =new int[5] {2,3,5,7,9};
+jaggedArray[1] = new int[3] { 2, 3, 5, };
+jaggedArray[2] = new int[2] { 15, 16 };
+
+// alternative way
+
+int[][] jaggedArray2 = new int[][]
+{
+    new int[] {2,3,5,7,9},
+    new int[] {1,2,3}
+};
+
+Console.WriteLine($"The value in the middle of the first entry is {jaggedArray2[0][2]}");
+
+// Try to get all the values within the array onto the console
+
+for(int i = 0; i < jaggedArray.Length; i++)
+{
+    Console.WriteLine("Element {0}",i);
+    for (int j = 0;j < jaggedArray[i].Length; j++)
+    {
+        Console.WriteLine("{0}", jaggedArray[i][j]);
+    }
+}
+
+int[] studentsGrades = new int[] {15,22,8,12,7};
+double averageResult = GetAverage(studentsGrades);
+
+foreach(int grade in studentsGrades)
+{
+    Console.WriteLine($"{grade}");
+}
+
+Console.WriteLine($"The Average is {averageResult}");
+
 Console.ReadLine();
+
+double GetAverage(int[] gradesArray)
+{
+    int size = gradesArray.Length;
+    double average;
+    int sum = 0;
+
+    for(int i = 0; i < size; i++)
+    {
+        sum += gradesArray[i];
+    }
+    average = (double)sum / size;
+    return average;
+}
 
