@@ -1,4 +1,6 @@
 ﻿// Arrays
+using System.Collections;
+
 int[] grades = new int[5];
 
 grades[0] = 20;
@@ -130,26 +132,71 @@ for(int i = 0; i < jaggedArray.Length; i++)
 int[] studentsGrades = new int[] {15,22,8,12,7};
 double averageResult = GetAverage(studentsGrades);
 
-foreach(int grade in studentsGrades)
+foreach (int grade in studentsGrades)
 {
     Console.WriteLine($"{grade}");
 }
 
 Console.WriteLine($"The Average is {averageResult}");
 
-Console.ReadLine();
+// ArrayLists
 
-double GetAverage(int[] gradesArray)
+// Declaring an ArrayList with undefined amount of object
+ArrayList myArrayList = new ArrayList();
+
+//Declaring an ArrayList with defined amount of object
+ArrayList myArrayList2 = new ArrayList(100);
+
+myArrayList.Add(25);
+myArrayList.Add("Hello");
+myArrayList.Add(13.37);
+myArrayList.Add(13);
+myArrayList.Add(132);
+myArrayList.Add(25.14);
+myArrayList.Add(13);
+
+// Delete element with specific value from the arrayList
+myArrayList.Remove(13);
+
+// Delete element at Specific posititon
+
+myArrayList.RemoveAt(0);
+
+Console.WriteLine(myArrayList.Count);
+
+double sum = 0;
+
+foreach (object obj in myArrayList)
 {
-    int size = gradesArray.Length;
-    double average;
-    int sum = 0;
-
-    for(int i = 0; i < size; i++)
+    if (obj is int)
     {
-        sum += gradesArray[i];
+        sum += Convert.ToDouble(obj);
+    } else if (obj is double)
+    {
+        sum += (double)obj;
+    } else if (obj is string)
+    {
+        Console.WriteLine(obj);
     }
-    average = (double)sum / size;
-    return average;
+
+    Console.WriteLine(sum);
+
+    static double GetAverage(int[] gradesArray)
+    {
+        int size = gradesArray.Length;
+        double average;
+        int sum = 0;
+
+        for (int i = 0; i < size; i++)
+        {
+            sum += gradesArray[i];
+        }
+        average = (double)sum / size;
+        return average;
+    }
 }
 
+
+Console.ReadLine();
+
+   
