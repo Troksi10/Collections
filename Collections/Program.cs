@@ -1,4 +1,5 @@
 ﻿// Arrays
+using Collections;
 using System.Collections;
 
 int[] grades = new int[5];
@@ -171,32 +172,145 @@ foreach (object obj in myArrayList)
     if (obj is int)
     {
         sum += Convert.ToDouble(obj);
-    } else if (obj is double)
+    }
+    else if (obj is double)
     {
         sum += (double)obj;
-    } else if (obj is string)
+    }
+    else if (obj is string)
     {
         Console.WriteLine(obj);
     }
 
     Console.WriteLine(sum);
 
-    static double GetAverage(int[] gradesArray)
-    {
-        int size = gradesArray.Length;
-        double average;
-        int sum = 0;
+}
 
-        for (int i = 0; i < size; i++)
+// Hashtables
+
+Hashtable studentstable = new Hashtable();
+
+Student stud1 = new Student(1, "Marija", 98);
+Student stud2 = new Student(2, "Jovana", 77);
+Student stud3 = new Student(3, "Darko", 43);
+Student stud4 = new Student(4, "Marko", 55);
+
+studentstable.Add(stud1.Id, stud1);
+studentstable.Add(stud2.Id, stud2);
+studentstable.Add(stud3.Id, stud3);
+studentstable.Add(stud4.Id, stud4);
+
+Student storedStudent1 = (Student) studentstable[stud1.Id];
+
+foreach(DictionaryEntry entry in studentstable)
+{
+    Student temp = (Student)entry.Value;
+    Console.WriteLine("Student ID:{0}",temp.Id);
+    Console.WriteLine("Student NAME:{0}", temp.Name);
+    Console.WriteLine("Student GPA:{0}", temp.GPA);
+}
+
+foreach (Student value in studentstable.Values)
+{
+    Console.WriteLine("Student ID:{0}", value.Id);
+    Console.WriteLine("Student NAME:{0}", value.Name);
+    Console.WriteLine("Student GPA:{0}", value.GPA);
+}
+
+Console.WriteLine("Student ID:{0}, NAME:{1}, GPA{2}",storedStudent1.Id, storedStudent1.Name, storedStudent1.GPA);
+
+// Challenge
+
+Hashtable newStudentstable = new Hashtable();
+
+
+Student[] students = new Student[5];
+students[0] = new Student(1,"Denis",88);
+students[1] = new Student(2, "Zarko", 97);
+students[2] = new Student(6, "Elena", 65);
+students[3] = new Student(1, "Stefan", 73);
+students[4] = new Student(4, "Aleksandar", 58);
+
+foreach (Student stud in students)
+{
+    if (!newStudentstable.ContainsKey(stud.Id))
         {
-            sum += gradesArray[i];
-        }
-        average = (double)sum / size;
-        return average;
+            newStudentstable.Add(stud.Id, stud);
+        Console.WriteLine("Student with ID{0} was added",stud.Id);
+    }
+    else
+    {
+        Console.WriteLine($"Sorry,A Student with the same ID already exists ID: {stud.Id}");
     }
 }
 
+// Dictionaries
+
+Employee[] employees =
+{
+    new Employee("CEO","Angela",95,200),
+    new Employee("Manager","Ilija",33,25),
+    new Employee("HR","Verica",30,22),
+    new Employee("Secretary","Milena",28,18),
+    new Employee("Lead Developer","Bojan",55,35),
+    new Employee("Intern","Zlatko",22,8)
+};
+
+Dictionary<int, string> myDictionary = new Dictionary<int, string>()
+{
+    {1,"one" },
+    {2,"two"},
+    {3,"three"}
+
+};
+
+Dictionary<string, Employee> employeeDictionary = new Dictionary<string, Employee>();
+
+foreach (Employee emp in employees)
+{
+    employeeDictionary.Add(emp.Role, emp);
+}
+
+string key = "CEO";
+if (employeeDictionary.ContainsKey(key))
+{
+    Employee empl = employeeDictionary[key];
+    Console.WriteLine($"Employee name : {empl.Name}, Role : {empl.Role}, Salary : {empl.Salary}");
+}
+else
+{
+    Console.WriteLine($"No Employee found this {key}");
+}
+
+Employee result = null;
+// using TryGetValue() it returns true if operation was succesfull and false otherwise 
+
+if(employeeDictionary.TryGetValue("Intern", out result))
+{
+    Console.WriteLine("Value Retrieved");
+
+    Console.WriteLine($"Employee Name : {result.Name}");
+    Console.WriteLine($"Employee Role : {result.Role}");
+    Console.WriteLine($"Employee Age : {result.Age}");
+    Console.WriteLine($"Employee Salary : {result.Salary}");
+}else
+{
+    Console.WriteLine("The key does not exist");
+}
 
 Console.ReadLine();
 
-   
+static double GetAverage(int[] gradesArray)
+{
+    int size = gradesArray.Length;
+    double average;
+    int sum = 0;
+
+    for (int i = 0; i < size; i++)
+    {
+        sum += gradesArray[i];
+    }
+    average = (double)sum / size;
+    return average;
+}
+
